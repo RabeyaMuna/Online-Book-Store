@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <h3 class="nav-item">
+      <%= link_to 'Online Book Store', root_path, class: "nav-link" %>
+    </h3>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <h4 class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link" %>
+        </h4>
+        <h4 class="nav-item">
+          <%= link_to Book.model_name.human(count: :many), books_path, class: "nav-link" %>
+        </h4>
+        <h4 class="nav-item">
+          <%= link_to Author.model_name.human(count: :many), authors_path, class: "nav-link" %>
+        </h4>
+        <h4 class="nav-item">
+          <%= link_to Genre.model_name.human(count: :many), genres_path, class: "nav-link" %>
+        </h4>
+        <h4 class="nav-item">
+          <% if signed_in? %>
+            <% @order = Order.find_by(user_id: current_user.id, order_status: :pending) %>
+            <% if @order.present? %>
+              <%= link_to 'Cart', order_path(@order.id), class: "nav-link" %> 
+            <% else %>
+              <%= link_to 'Cart', books_path, class: "nav-link", data: { confirm: t('notice.order.cart') }  %> 
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="nav-item">
+          <% if signed_in?  %>
+            <% if current_user.admin?  %>
+              <%= link_to User.model_name.human(count: :many), users_path, class: "nav-link" %> 
+            <% else %> 
+              <%= link_to 'My Profile', user_path(current_user.id), class: "nav-link" %> 
+            <% end %>
+          <% else %>
+            <% if can? :show, @users %>
+              <%= link_to User.model_name.human(count: :many), users_path, class: "nav-link" %> 
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="nav-item">
+          <%= link_to search_with_gem_path, class: "nav-link" do %>
+            <%= image_tag 'search_icon.png' %>
+          <% end %>
+        </h4>
+      </div>
+
+      <%= simple_form_for :search, url: search_without_gem_path, method: :get do |f| %>
+        <%= f.input_field :search_text, placeholder: 'Search' %>
+        <%= f.button :submit, 'Search', class: "btn btn-outline-success btn-lg" %>
+      <% end %>
+
+      <% if signed_in? %>
+        <%= link_to 'Sign Out',
+                    sign_out_path,
+                    method: :delete,
+                    class: "btn btn-primary btn-lg",
+                    data: { confirm: t('notice.logout.confirmation') } %>
+      <% else %>
+        <%= link_to 'Sign Up', sign_up_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to 'Sign In', sign_in_path, class: "btn btn-success btn-lg" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

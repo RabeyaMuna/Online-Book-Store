@@ -1,0 +1,14 @@
+<%= simple_form_for user do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email, placeholder: 'something@example.com' %>
+  <%= f.input :password, placeholder: 'Minimum 6 Characters' %>
+  <%= f.input :phone, placeholder: '01*********' %>
+  <% if can? :write, user, :role %>
+    <%= f.input :role, as: :radio_buttons, collection: User::ROLES.keys %>
+  <% end %>
+  <br>
+  <%= f.label :avatar, 'Upload Image' %>
+  <%= f.file_field :avatar, accept: ContentType::IMAGE_TYPE %>
+  <br>
+  <%= f.button :submit, 'Save', class: "btn-success mt-3" %>
+<% end %>

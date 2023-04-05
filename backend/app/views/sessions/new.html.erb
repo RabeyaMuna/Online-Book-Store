@@ -1,0 +1,15 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>Sign In</h1>
+      <%= simple_form_for :session, url: sign_in_path do |f| %>
+        <%= f.input :email, placeholder: 'something@example.com' %>
+        <%= f.input :password %>
+        <%= f.button :submit, 'Sign In', class: "btn-success mt-3" %>
+      <% end %>
+      <div class="other-links">
+        <%= link_to 'Forget Password', new_password_path %>
+      </div>
+    </div>
+  </div>
+</div>

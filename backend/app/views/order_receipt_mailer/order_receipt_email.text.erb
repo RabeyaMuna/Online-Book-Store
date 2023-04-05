@@ -1,0 +1,12 @@
+You got a new order from <%= @order.user.name %>!
+===============================================
+Dear <%= @order.user.name %>
+Your order has been placed and file has attached. 
+
+Order Details:
+
+Name: <%= @order.user.name %>
+Email: <%= @order.user.email %>
+Address: <%= @order.delivery_address %>
+Phone: <%= @order.user.phone %>
+Total Bill: <%= @order.total_bill %>

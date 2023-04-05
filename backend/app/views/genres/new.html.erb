@@ -1,0 +1,10 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1><%= t('actions.button.create', resource: Genre.model_name.human) %></h1>
+      <%= render 'form', genre: @genre %>
+      <br>    
+      <%= link_to t('actions.button.return', resource: Genre.model_name.human), genres_path, class: "btn btn-info btn-sm" %>
+    </div>
+  </div>
+</div>

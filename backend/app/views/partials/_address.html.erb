@@ -1,0 +1,9 @@
+<%= simple_form_for @order do |f| %>
+  <%= f.input :delivery_address,
+              label: false,
+              required: true,
+              as: :text,
+              include_hidden: false,
+              placeholder: 'Enter delivery Address' %>
+  <%= f.button :submit, 'Save', id: 'btn', class: "btn btn-success mt-3", disabled: true %>
+<% end %>

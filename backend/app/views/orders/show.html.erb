@@ -1,0 +1,103 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1><%= t('actions.tables.header') %></h1>
+      <table class="table">
+        <tr>
+          <td><%= t('actions.tables.name') %></td>
+          <td><%= @order.user.name %></td>
+        </tr>
+        <tr>
+          <td><%= t('actions.tables.phone') %></td>
+          <td><%= @order.user.phone %></td>
+        </tr>
+        <tr>
+          <td><%= t('actions.tables.mail') %></td>
+          <td><%= @order.user.email %></td>
+        </tr>
+        <tr>
+          <td><%= t('actions.tables.status') %></td>
+          <td><%= @order.order_status %></td>
+        </tr>
+        <tr>
+        <td><%= t('actions.tables.address') %></td>
+        <td>
+          <% if @order.delivery_address.nil? %>
+            <%= render partial: 'partials/address' %>
+          <% else %>
+            <%= @order.delivery_address %>
+          <% end %>
+        </td>
+        </tr>
+      </table>
+      <% if @order.pending? %>
+        <%= link_to t('actions.button.back'), books_path, class: "btn btn-info btn-sm" %>
+      <% end %>
+      <%= link_to t('actions.button.delete'),
+                  order_path(@order),
+                  class: "btn btn-danger btn-sm",
+                  method: :delete,
+                  data: { confirm: t('notice.delete.confirmation') } %>
+      <%= link_to 'Download OrderReceipt PDF', order_path(@order, format: :pdf) %>
+      <div class="container my-5">
+        <div class="card">
+          <div class="card-body">
+            <h1>List Of Order Items</h1>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Order Item ID</th>
+                  <th scope="col">Book Name</th>
+                  <th scope="col">Book Price</th>
+                  <th scope="col">Book Quantity</th>
+                  <th scope="col">Sub Total</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@order_items.each do |order_item|%>
+                  <tr>
+                    <td><%= order_item.id %></td>
+                    <td><%= order_item.book.name %></td>
+                    <td><%= order_item.book.price.round(2) %></td>
+                    <td><%= order_item.quantity %></td>
+                    <td><%= (order_item.quantity * order_item.book.price).round(2) %></td>
+                    <td>
+                      <% if @order.pending? %>
+                        <%= link_to '+',
+                                    order_order_item_path(@order, order_item, quantity: 1), 
+                                    method: :put,
+                                    class: "btn btn-success btn-sm" %>
+                        <%= link_to '-',
+                                    order_order_item_path(@order, order_item, quantity: -1),
+                                    method: :put,
+                                    class: "btn btn-danger btn-sm" %>
+                        <%= link_to t('actions.button.delete'),
+                                    order_order_item_path(@order, order_item),
+                                    method: :delete,
+                                    class: "btn btn-primary btn-sm",
+                                    data: { confirm: t('notice.delete.confirmation') } %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="border border-light p-3 mb-4">
+        <p class="bill">Total Bill:&nbsp;&nbsp;&nbsp;&nbsp;<%= @order.total_bill %></p>
+      </div>
+      <div class="border border-light p-3 mb-4">
+        <% if @order.pending? %>
+          <%= link_to t('actions.button.confirm'),
+                      update_status_order_path(@order),
+                      method: :post,
+                      class: "btn btn-success btn-sm",
+                      data: { confirm: t('notice.order.confirmation') } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

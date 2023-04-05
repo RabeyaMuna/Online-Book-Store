@@ -1,0 +1,7 @@
+default:
+  postmark_api_key: <%= ENV.fetch('POSTMARK_API_KEY', 'postmark_api_key') %>
+
+development:
+test:
+staging:
+production:

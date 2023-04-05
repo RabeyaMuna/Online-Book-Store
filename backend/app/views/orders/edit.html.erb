@@ -1,0 +1,14 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>Edit Order Information</h1>
+      <%= simple_form_for @order do |f| %>
+        <%= f.input :delivery_address, as: :text, placeholder: 'Please fill up the delivery address' %>
+        <%= f.input :order_status, as: :radio_buttons, collection: Order::STATUS.keys %>
+        <%= f.button :submit, class: "btn btn-success mt-3" %>
+      <% end %>
+      <%= link_to t('actions.button.cancel'), order_path, class: "btn btn-success mt-3" %>
+      <%= link_to t('actions.button.back'), orders_path, class: "btn btn-success mt-3" %>
+    </div>
+  </div>
+</div>

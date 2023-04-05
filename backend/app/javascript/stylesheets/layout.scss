@@ -1,0 +1,29 @@
+h1, h2, h3 {
+  color: $dark-blue;
+}
+
+.alert {
+  font-size: 1rem;
+}
+
+.bill {
+  text-align: right;
+  font-size: 2.2rem;
+}
+
+.img-circular {
+  width: 12.5rem;
+  height: 12.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover;
+  display: block;
+  border-radius: 6.25rem;
+  -webkit-border-radius: 6.25rem;
+  -moz-border-radius: 6.25rem;
+}
+
+.index-img {
+  width: 3rem;
+  height: 3rem;
+}

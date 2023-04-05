@@ -1,0 +1,52 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <% if @book.avatar.attached? %>
+        <%= image_tag(@book.avatar, class: "img-circular") %>
+      <% else %>
+        <%= image_tag('default_book_avatar.jpeg', class: "img-circular") %>
+      <% end %>
+      <h1>Book Details</h1>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <td><%= @book.name %></td>
+        </tr>
+        <tr>
+          <th>Price</th>
+          <td>TK: <%= @book.price %></td>
+        </tr>
+        <tr>
+        <th>Total Copies</th>
+        <td><%= @book.total_copies %></td>
+        </tr>
+        <tr>
+          <th>Copies Sold</th>
+          <td><%= @book.copies_sold %></td>
+        </tr>
+        <tr>
+          <th>Publication Year</th>
+          <td><%= @book.publication_year %></td>
+        </tr>
+      </table>
+      <h3>Author List of the Book</h3>
+      <ol>
+        <% @book.authors.each do |author| %>
+          <li><%= author.full_name %></li>
+        <% end %>
+      </ol>
+      <div>
+        <%= link_to t('actions.button.return', resource: Book), books_path, class: "btn btn-info btn-sm" %>
+        <% if can? :update, @book %>
+          <%= link_to t('actions.button.edit'), edit_book_path(@book), class: "btn btn-primary btn-sm" %>
+        <% end %>
+        <% if can? :destroy, @book %>
+          <%= link_to t('actions.button.delete'), book_path(@book),
+                      class: "btn btn-danger btn-sm",
+                      method: :delete,
+                      data: { confirm: t('notice.delete.confirmation') } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="view-h1"><%= t('views.resource_list', resource: Genre.model_name.human) %></h1>
+      <div class="button">
+        <% if can? :create, Genre %>
+          <%= link_to t('actions.button.create',
+                      resource: Genre.model_name.human),
+                      new_genre_path,
+                      class: "btn btn-primary float-end btn-sm" %>
+        <% end %>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"><%= sort_link(@q,
+                                          :name,
+                                          Genre.human_attribute_name(:name),
+                                          default_order: :asc) %></th>
+            <th scope="col"><%= sort_link(@q,
+                                          :created_at,
+                                          Genre.human_attribute_name(:created_at),
+                                          default_order: :asc) %></th>
+            <th scope="col"><%= t('actions.actions') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @genres.each do |genre| %>
+            <tr>
+              <td><%= genre.name %></td>
+              <td><%= genre.created_at.strftime('%d-%m-%Y') %></td>
+              <td><%= link_to t('actions.button.show'),
+                              genre_path(genre),
+                              class: "btn btn-primary btn-sm" %>
+                  <% if can? :update, genre %>
+                    <%= link_to t('actions.button.edit'),
+                                edit_genre_path(genre),
+                                class: "btn btn-secondary btn-sm" %>
+                  <% end %>
+                  <% if can? :destroy, genre %>
+                    <%= link_to t('actions.button.delete'),
+                                genre_path(genre),
+                                class: "btn btn-danger btn-sm",
+                                method: :delete,
+                                data: { confirm: t('notice.delete.confirmation') } %>
+                  <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br/>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="p-2">
+      <%= paginate @genres %>
+      <%= page_entries_info @genres %>
+    </div>
+    <div class="p-2">
+      <%= render partial: 'partials/pagination', locals: { model: Genre.model_name.human.downcase, url: genres_path } %>
+    </div>
+  </div>
+</div>

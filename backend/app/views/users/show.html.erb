@@ -1,0 +1,49 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group">
+        <% if @user.avatar.attached? %>
+          <%= image_tag(@user.avatar, class: "img-circular") %>
+        <% else %>
+          <%= image_tag('default_user_avatar.png', class: "img-circular") %>
+        <% end %>
+      </div>
+      <h1><%= User.model_name.human %> Details</h1>
+      <table class="table">
+        <tr>
+          <td><%= User.human_attribute_name(:name) %>:</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><%= User.human_attribute_name(:email) %>:</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td><%= User.human_attribute_name(:password) %>:</td>
+          <td><%= @user.password %></td>
+        </tr>
+        <tr>
+          <td><%= User.human_attribute_name(:phone) %>:</td>
+          <td><%= @user.phone %></td>
+        </tr>
+        <tr>
+          <td><%= User.human_attribute_name(:role) %>:</td>
+          <td><%= @user.role %></td>
+        </tr>
+      </table>
+      <div>
+        <%= link_to t('actions.button.return', resource: User), users_path, class: "btn btn-info btn-sm" %>
+        <% if can? :update, @user %>
+          <%= link_to t('actions.button.edit'), edit_user_path(@user), class: "btn btn-primary btn-sm" %>
+        <% end %>
+        <% if can? :destroy, @user %>
+          <%= link_to t('actions.button.delete'),
+                      @user,
+                      class: "btn btn-danger btn-sm",
+                      method: :delete,
+                      data: { confirm: t('notice.delete.confirmation') } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

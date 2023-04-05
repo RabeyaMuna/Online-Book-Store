@@ -1,0 +1,49 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-body">
+      <h1> Order Lists </h1>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Order ID</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Customer Phone</th>
+              <th scope="col">Customer Email</th>
+              <th scope="col">Order Address</th>
+              <th scope="col"> Total Amount </th>
+              <th scope="col">Order Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @orders.each do |order| %>
+              <tr>
+                <td><%= order.id %></td>
+                <td><%= order.user.name %></td>
+                <td><%= order.user.phone %></td>
+                <td><%= order.user.email %></td>
+                <td><%= order.delivery_address %></td>
+                <td><%= order.total_bill %></td>
+                <td><%= order.order_status %></td>
+                <td>
+                  <%= link_to t('actions.button.show'),
+                              order_path(order.id),
+                              class: "btn btn-primary btn-sm" %>
+                  <%= link_to t('actions.button.edit'),
+                              edit_order_path(order.id), 
+                              class: "btn btn-secondary btn-sm" %>
+                  <%= link_to t('actions.button.delete'),
+                              order_path(order),
+                              class: "btn btn-danger btn-sm",
+                              method: :delete,
+                              data: { confirm: t('notice.delete.confirmation') } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

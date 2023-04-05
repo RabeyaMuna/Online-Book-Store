@@ -1,0 +1,47 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1><%= @genre.name %> <%= t('views.resource_list', resource: Book.model_name.human)%></h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+           <th scope="col"><%= sort_link(@q,
+                                         :name,
+                                         Book.human_attribute_name(:name),
+                                         default_order: :asc) %></th>
+            <th scope="col"><%= t('views.resource_name', resource: Author.model_name.human) %></th>
+            <th scope="col"><%= Book.human_attribute_name(:publication_year) %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each do |book| %>
+          <tr>
+            <td><%= link_to book.name,
+                            book_path(book),
+                            class: "btn btn-primary btn-sm" %></td>
+            <td><%= book.authors.collect(&:full_name).join(',') %></td>
+            <td><%= book.publication_year %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to t('actions.button.return', resource: Genre.model_name.human), genres_path, class: "btn btn-secondary btn-sm" %>
+      <% if can? :update, @genre %>
+        <%= link_to t('actions.button.edit'), edit_genre_path(@genre), class: "btn btn-primary btn-sm" %>
+      <% end %>
+      <% if can? :destroy, @genre %>
+        <%= link_to t('actions.button.delete'),
+                    genre_path(@genre),
+                    class: "btn btn-danger btn-sm",
+                    method: :delete,
+                    data: { confirm: t('notice.delete.confirmation') } %>
+      <% end %>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="p-2">
+      <%= paginate @books %>
+      <%= page_entries_info @books %>
+    </div>
+  </div>
+</div>

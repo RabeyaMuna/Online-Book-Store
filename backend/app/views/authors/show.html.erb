@@ -1,0 +1,33 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h3>Full Name: </h3>
+      <p><%= @author.full_name %></p>
+      <h3>Nick Name: </h3>
+      <p><%= @author.nick_name %></p>
+      <h3>Biography: </h3>
+      <p> <%= @author.biography %></p>
+      <h3>Book List by this author: </h3>
+      <ol>
+        <% @author.books.each do |book| %>
+          <li>
+            <%= book.name %>
+          </li>
+        <% end %>
+      </ol>
+      <div>
+        <%= link_to t('actions.button.return', resource: Author), authors_path, class: "btn btn-info btn-sm" %>
+        <% if can? :update, @author %>
+          <%= link_to 'Edit', edit_author_path(@author), class: "btn btn-primary btn-sm" %>
+        <% end %>
+        <% if can? :destroy, @author %>
+          <%= link_to t('actions.button.delete'),
+                      author_path(@author),
+                      class: "btn btn-danger btn-sm",
+                      method: :delete,
+                      data: { confirm: t('notice.delete.confirmation') } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

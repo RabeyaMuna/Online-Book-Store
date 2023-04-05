@@ -1,0 +1,76 @@
+---
+en:
+  actions:
+    actions: Actions
+    button:
+      back: BACK
+      cancel: CANCEL
+      confirm: CONFIRM
+      create: Create a New %{resource}
+      delete: DELETE
+      edit: EDIT
+      return: Return to the %{resource} List
+      show: SHOW
+    tables:
+      address: Delivery Address
+      header: Order Detail
+      mail: E-mail
+      name: Customer Name
+      phone: Phone No.
+      status: Order Status
+  activerecord:
+    attributes:
+      book:
+        publication_year: Publication Year
+      genre:
+        created_at: Created_at
+        name: Name
+    models:
+      author:
+        one: Author
+        other: Authors
+      book:
+        one: Book
+        other: Books
+      genre:
+        one: Genre
+        other: Genres
+      user:
+        one: User
+        other: Users
+  clearance_mailer:
+    change_password:
+      closing: If you didn't request this, ignore this email. Your password has not been changed.
+      link_text: Change my password
+      opening: 'Someone, hopefully you, requested we send you a link to change your password:'
+  notice:
+    create:
+      fail: "%{resource} Creation Failed!"
+      success: "%{resource} Created Successfully!"
+    delete:
+      confirmation: Are you sure?
+      fail: "%{resource} Deletion Failed!"
+      success: "%{resource} Successfully Deleted!"
+    load:
+      success: "%{resource} Loaded Successfully"
+    logout:
+      confirmation: Are you sure to log out?
+    mailer:
+      order: Your Order has been Placed!
+      report_generation: A report is generated for %{resource}
+      welcome: Welcome to Online Book Store
+    not_found: Your requested %{resource} does not exist!
+    order:
+      cart: Cart is empty
+      confirmation: Are you sure to place the order?
+      error: Order can not be placed. Fill up the delivery address!!
+      success: Order has sucessfully placed!
+    update:
+      fail: Failed to Update %{resource}!
+      success: "%{resource} Successfully Updated!"
+  views:
+    resource_edit: Edit %{resource}'s Information
+    resource_list: "%{resource} List"
+    resource_name: "%{resource} Name"
+    shared:
+      amount: Total Bill

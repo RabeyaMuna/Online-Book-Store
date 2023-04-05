@@ -1,0 +1,6 @@
+<%= simple_form_for model, url: url, method: :get do |f| %>
+  <%= f.input :limit, label: false, wrapper_html: { class: "form-inline" } do %>
+    <%= f.input_field :limit, label: false, placeholder: 'Set Page Limit' %>
+    <%= f.button :submit, "Go!", class: "btn-primary" %>
+  <% end %>
+<% end %>

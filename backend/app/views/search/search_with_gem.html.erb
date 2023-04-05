@@ -1,0 +1,87 @@
+<%= render 'filters' %>
+
+<div class="container my-4">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="view-h1">Search Results</h1>
+    </div>
+    <div class="card-body">
+      <% if @books.size.zero? %>
+        <h1 class="view-h1">No match found!</h1>
+      <% else %>
+        <% if can? :create, Book %>
+          <div class="button">
+            <%= link_to t('actions.button.create',
+                        resource: Book.model_name.human),
+                        new_book_path,
+                        class: "btn btn-primary float-end btn-sm" %>
+          </div>
+        <% end %>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">SL</th>
+              <th scope="col">
+                <%= sort_link(@q,
+                              :name,
+                              Book.human_attribute_name(:name)) %>
+              </th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @books.each.with_index(1) do |book, index| %>
+              <tr>
+                <td><%= calculate_serial(Book, index) %></td>
+                <td>
+                  <%= link_to book.name, book, class: "btn btn-link btn-lg" %><br>
+                  <p>
+                    <b>Published in </b><%= book.publication_year %>
+                    <b> || Price </b><%= book.price.round %>tk<br>
+                    <b>Authors </b>
+                    <% book.authors.each do |author| %>
+                      <b>||</b> <%= author.full_name %>
+                    <% end %>
+                    <br>
+                    <b>Genres </b>
+                    <% book.genres.each do |genre| %>
+                      <b>||</b> <%= genre.name %>
+                    <% end %>
+                  </p>
+                </td>
+                <td><%= link_to t('actions.button.show'),
+                                book_path(book),
+                                class: "btn btn-primary btn-sm" %>
+                    <% if can? :update, book %>
+                      <%= link_to t('actions.button.edit'),
+                                  edit_book_path(book),
+                                  class: "btn btn-secondary btn-sm" %> 
+                    <% end %>
+                    <% if can? :destroy, book %>
+                      <%= link_to t('actions.button.delete'),
+                                  book_path(book),
+                                  class: "btn btn-danger btn-sm",
+                                  method: :delete,
+                                  data: { confirm: t('notice.delete.confirmation') } %>
+                    <% end %>
+                </td>
+                <td><%= link_to 'Add', 
+                                orders_path({ order: { order_items_attributes: [book_id: book.id, quantity: 1] } }),
+                                method: :post, 
+                                class: "btn btn-success" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <br/>
+        <div class="d-flex justify-content-between">
+          <div class="p-2">
+            <%= paginate @books %>
+            <%= page_entries_info @books %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

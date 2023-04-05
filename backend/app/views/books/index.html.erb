@@ -1,0 +1,83 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="view-h1">Book List</h1>
+      <% if can? :create, Book %>
+        <div class="button">
+          <%= link_to t('actions.button.create',
+                      resource: Book),
+                      new_book_path,
+                      class: "btn btn-primary float-end btn-sm" %>
+        </div>
+      <% end %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">SL</th>
+            <th scope="col"><%= sort_link(@query,
+                                          :name,
+                                          Book.human_attribute_name(:name),
+                                          default_order: :asc) %></th>
+            <th scope="col"><%= sort_link(@query,
+                                          :created_at,
+                                          Book.human_attribute_name(:created_at),
+                                          default_order: :asc) %></th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @books.each.with_index(1) do |book, index| %>
+            <tr>
+              <td>
+                <div class="posts-index-img d-inline">
+                  <% if book.avatar.attached? %>
+                    <%= image_tag(book.avatar, class: "index-img") %>
+                  <% else %>
+                    <%= image_tag('default_book_avatar.jpeg', class: "index-img") %>
+                  <% end %>
+                </div>
+              </td>
+              <td><%= calculate_serial(Book, index) %></td>
+              <td><%= link_to book.name, book, class: "btn btn-link btn-sm" %></td>
+              <td><%= book.created_at.strftime("%d-%m-%Y") %></td>
+              <td><%= link_to t('actions.button.show'),
+                              book_path(book),
+                              class: "btn btn-primary btn-sm" %>
+                  <% if can? :update, book %>
+                    <%= link_to t('actions.button.edit'),
+                                edit_book_path(book),
+                                class: "btn btn-secondary btn-sm" %> 
+                  <% end %>
+                  <% if can? :destroy, book %>
+                    <%= link_to t('actions.button.delete'),
+                                book_path(book),
+                                class: "btn btn-danger btn-sm",
+                                method: :delete,
+                                data: { confirm: t('notice.delete.confirmation') } %>
+                  <% end %>
+              </td>
+            <% if signed_in? %>
+              <td><%= link_to 'Add to cart', 
+                              orders_path({ order: { order_items_attributes: [book_id: book.id, quantity: 1] } }),
+                              method: :post, 
+                              class: "btn btn-success" %>
+              </td>
+            <% end %>  
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br/>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="p-2">
+      <%= paginate @books %>
+      <%= page_entries_info @books %>
+    </div>
+
+    <div class="p-2">
+      <%= render partial: 'partials/pagination', locals: { model: 'book', url: books_path } %>
+    </div>
+  </div>
+</div>

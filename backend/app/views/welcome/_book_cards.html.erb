@@ -1,0 +1,28 @@
+<div class="book">
+  <br>
+  <div class="book__title">
+    <h2><%= title %></h2>
+    <%= simple_form_for :book, url: root_path, method: :get do |f| %>
+      <%= f.input_field :limit, label: false, placeholder: 'No of Books to Show' %>
+      <%= f.hidden_field :title, value: title %>
+      <%= f.button :submit, 'Go', class: "btn btn-primary btn-sm" %>
+    <% end %>
+  </div>
+  <div class="book__cards">
+    <% book_list.each do |book| %> 
+      <div class="book__card">
+        <% book_cover_path = book.images.first ? book.images.first.image_path : '/not_found.jpeg' %>
+        <img class="book__img" src=<%= book_cover_path %>>
+        <div class="book__content">
+          <h5 class="book__name"><%= book.name %></h5>
+          <h6 class="book__description">Tk: <%= book.price.round() %></h6>
+          <% book.authors.each do |author| %>
+            <h6 class="book__description"><%= author.full_name %></h6>
+          <% end %>
+          <%= link_to 'Details', book_path(book), class: "book__link" %>
+        </div>
+      </div>
+    <% end %> 
+  </div>
+</div>
+<br>

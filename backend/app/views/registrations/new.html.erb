@@ -1,0 +1,18 @@
+<div class="container my-5">
+  <div class="card">
+    <div class="card-body">
+      <h1>Sign Up</h1>
+      <%= simple_form_for @user, url: sign_up_path do |f| %>
+        <%= f.input :name %>
+        <%= f.input :email, placeholder: 'something@example.com' %>
+        <%= f.input :password, placeholder: 'Minimum 6 Characters' %>
+        <%= f.input :phone, placeholder: '01*********' %>
+        <%= f.button :submit, 'Sign Up', class: "btn-success mt-3" %>
+      <% end %>
+      <br>
+      <div class="other-links">
+        <%= link_to 'Sign In', sign_in_path %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+---
+bn:
+  actions:
+    actions: কার্যতালিকা
+    button:
+      back: তালিকায় ফিরে যান
+      cancel: বাতিল করুন
+      confirm: নিশ্চিত করুন
+      create: নতুন একটি %{resource} তৈরি করুন
+      delete: মুছে ফেলা
+      edit: পরিবর্তন করা
+      return: "%{resource} তালিকায় ফিরে যান"
+      show: প্রদর্শন করা
+    tables:
+      address: Delivery Address
+      header: Order Detail
+      mail: E-mail
+      name: Customer Name
+      phone: Phone No.
+      status: Order Status
+  activerecord:
+    attributes:
+      book:
+        publication_year: প্রকাশকাল
+      genre:
+        created_at: তৈরীর সময়
+        name: নাম
+    models:
+      author:
+        one: Author
+        other: Authors
+      book:
+        one: Book
+        other: Books
+      genre:
+        one: Genre
+        other: Genres
+      user:
+        one: User
+        other: Users
+  clearance_mailer:
+    change_password:
+      closing: If you didn't request this, ignore this email. Your password has not been changed.
+      link_text: Change my password
+      opening: 'Someone, hopefully you, requested we send you a link to change your password:'
+  notice:
+    create:
+      fail: "%{resource} তৈরি ব্যর্থ হয়েছে"
+      success: "%{resource} সফলভাবে তৈরি হয়েছে"
+    delete:
+      confirmation: আপনি কি নিশ্চিত?
+      fail: "%{resource} মুছে ফেলা ব্যর্থ হয়েছে"
+      success: "%{resource} সফলভাবে মুছে ফেলা হয়েছে"
+    load:
+      success: "%{resource} Loaded Successfully"
+    logout:
+      confirmation: আপনি লগ আউট করতে নিশ্চিত?
+    mailer:
+      order: Your Order has been Placed!
+      report_generation: A report is generated for %{resource}
+      welcome: Welcome to Online Book Store
+    not_found: আপনার অনুরোধ করা %{resource} এর অস্তিত্ব নেই
+    order:
+      cart: cart is empty. Add items first!!
+      confirmation: Are you sure to place the order?
+      error: Order can not be placed. Fill up the delivery address!!
+      success: Order has sucessfully placed!
+    update:
+      fail: "%{resource} আপডেট করতে ব্যর্থ হয়েছে"
+      success: "%{resource} সফলভাবে আপডেট করা হয়েছে"
+  views:
+    resource_edit: "%{resource} তথ্য পরিবর্তন করুন"
+    resource_list: "%{resource} তালিকা"
+    resource_name: "%{resource} নাম"
+    shared:
+      amount: Total Bill

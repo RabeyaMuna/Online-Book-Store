@@ -1,0 +1,12 @@
+<%= simple_form_for book do |f| %>
+  <%= f.input :name %>
+  <%= f.input :price %>
+  <%= f.input :total_copies, placeholder: 'Must be greater than 0' %>
+  <%= f.input :copies_sold %>
+  <%= f.input :publication_year, as: :date, html5: true %>
+  <br>
+  <%= f.label :avatar, 'Upload Image' %>
+  <%= f.file_field :avatar, accept: ContentType::IMAGE_TYPE %>
+  <br>
+  <%= f.button :submit, class: "btn-success mt-3" %>
+<% end %>

@@ -1,0 +1,70 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-body">
+    <div class="button">
+      <%= link_to('Send User Report Mail', send_user_report_mail_path, class: "btn btn-info float-end btn-sm") %>
+    </div>
+      <h1>List of Users:</h1>
+      <% if can? :read, @user %>
+        <div class="button">
+          <%= link_to('Create a New User', new_user_path, class: "btn btn-success float-end btn-lg") %>
+        </div>
+      <% end %>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">SL</th>
+            <th scope="col"><%= sort_link(@query,
+                                          :name,
+                                          User.human_attribute_name(:name),
+                                          default_order: :asc) %></th>
+            <th scope="col"><%= sort_link(@query,
+                                          :created_at,
+                                          User.human_attribute_name(:created_at),
+                                          default_order: :asc) %></th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each.with_index(1) do |user, index| %>
+            <tr><td><%= calculate_serial(User, index) %></td>
+              <td><%= user.name %></td>
+              <td><%= user.created_at.strftime("%d-%m-%Y") %></td>
+              <td><% if can? :read, user %>
+                    <%= link_to t('actions.button.show'),
+                                user_path(user),
+                                class: "btn btn-primary btn-sm" %>
+                  <% end %>
+                  <% if can? :update, user %>
+                    <%= link_to t('actions.button.edit'),
+                                edit_user_path(user),
+                                class: "btn btn-secondary btn-sm" %>
+                  <% end %>
+                  <% if can? :destroy, user %>
+                    <%= link_to t('actions.button.delete'),
+                                user,
+                                class: "btn btn-danger btn-sm",
+                                method: :delete,
+                                data: { confirm: t('notice.delete.confirmation') } %>
+                  <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br/>
+  <% if can? :read, @user %>
+    <div class="d-flex justify-content-between">
+      <div class="p-2">
+        <%= paginate @users %>
+        <%= page_entries_info @users %>
+      </div>
+
+      <div class="p-2">
+        <%= render partial: 'partials/pagination', locals: { model: 'user', url: users_path } %>
+      </div>
+    </div>
+  <% end %>
+</div>

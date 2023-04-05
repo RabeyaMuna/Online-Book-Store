@@ -1,0 +1,3 @@
+test:
+  url: <%= ENV.fetch('DATABASE_URL') %>
+  schema_search_path: "public, shared_extensions"

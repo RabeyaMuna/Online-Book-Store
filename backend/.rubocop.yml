@@ -1,0 +1,2 @@
+inherit_from:
+  - https://raw.githubusercontent.com/wtag/default-configs/master/rubocop-default-config.yml

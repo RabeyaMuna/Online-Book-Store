@@ -1,0 +1,4 @@
+<%= simple_form_for genre do |f| %>
+  <%= f.input :name, label: Genre.human_attribute_name(:name) %>
+  <%= f.button :submit, class: "btn-success mt-3" %>
+<% end %>

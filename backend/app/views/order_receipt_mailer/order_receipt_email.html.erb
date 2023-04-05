@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Dear <%= @order.user.name %>,<br>
+      The Order has been placed and the file has  attached below. <br>
+      Order details<br>
+      Order placed By: <%= @order.user.name %><br>
+      Email: <%= @order.user.email %><br>
+      Address: <%= @order.delivery_address %><br>
+      Phone: <%= @order.user.phone %><br>
+      <span style="color: red">
+        Total Bill: Phone: <%= @order.total_bill %>
+      </span>
+    </p>
+  </body>
+</html>

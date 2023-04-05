@@ -1,0 +1,45 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="view-h1">Filters</h1>
+    </div>
+    <div class="card-body">
+      <%= search_form_for @q, url: search_with_gem_path do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.search_field :name_cont, class: 'form-control' %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= f.label :genre %>
+          <%= f.select :genres_name_eq, options_for_select(@genre_list), include_blank: true %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= f.label :price_range %>
+          <div class="row">
+            <div class="col">
+              <%= f.search_field :price_gteq, class: 'form-control' %>
+            </div>
+            <div class="col">
+              <%= f.search_field :price_lteq, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= f.label :authors_name %>
+          <%= f.search_field :author_cont, class: 'form-control' %>
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="float-right">
+            <%= link_to "Clear", request.path, :class => "btn btn-secondary" %>
+            <%= f.submit class: 'btn btn-primary' %>
+          </div>
+        </div>
+        <br>
+      <% end %>
+    </div>
+  </div>
+</div>
